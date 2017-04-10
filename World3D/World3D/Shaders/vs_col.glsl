@@ -1,14 +1,13 @@
-#version 330
+﻿#version 330
 
 in  vec3 vPosition;
-in vec2 vTexcoord;
-out vec2 f_texcoord;
-
+in  vec3 vColor;
+out vec4 color;
 uniform mat4 modelview;
 
 void
 main()
 {
     gl_Position = modelview * vec4(vPosition, 1.0);
-    f_texcoord = vTexcoord;
+    color = vec4( vColor, 1.0);
 }

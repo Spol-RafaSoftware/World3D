@@ -53,10 +53,12 @@
     <Compile Include="AzElCameraControl.cs" />
     <Compile Include="Math3D.cs" />
     <Compile Include="ModelRenderer.cs" />
+    <Compile Include="ModelTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShaderProgram.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="TextureLoader.cs" />
     <Compile Include="WorldWindow.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,12 +71,20 @@
     <None Include="Shaders\fs_tex.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Shaders\vs_col.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Shaders\vs.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shaders\vs_tex.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Textures\opentksquare.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,9 +19,31 @@ namespace World3D
         public Dictionary<String, UniformInfo> Uniforms = new Dictionary<string, UniformInfo>();
         public Dictionary<String, uint> Buffers = new Dictionary<string, uint>();
 
+        DateTime created = DateTime.Now;
+
         public ShaderProgram()
         {
+        }
+
+
+        public void Load(String vshader, String fshader, bool fromFile = false)
+        {
+            if (ProgramID >= 0) return;
             ProgramID = GL.CreateProgram();
+
+            if (fromFile)
+            {
+                LoadShaderFromFile(vshader, ShaderType.VertexShader);
+                LoadShaderFromFile(fshader, ShaderType.FragmentShader);
+            }
+            else
+            {
+                LoadShaderFromString(vshader, ShaderType.VertexShader);
+                LoadShaderFromString(fshader, ShaderType.FragmentShader);
+            }
+
+            Link();
+            GenBuffers();
         }
 
         private void loadShader(String code, ShaderType type, out int address)
@@ -168,27 +190,13 @@ namespace World3D
                 return 0;
             }
         }
+            public override string ToString()
+        {
+            return "ShaderProg_" + ProgramID + "_" + VShaderID + "_" + FShaderID;
+        }
+    
 
         
-
-        public ShaderProgram(String vshader, String fshader, bool fromFile = false)
-        {
-            ProgramID = GL.CreateProgram();
-
-            if (fromFile)
-            {
-                LoadShaderFromFile(vshader, ShaderType.VertexShader);
-                LoadShaderFromFile(fshader, ShaderType.FragmentShader);
-            }
-            else
-            {
-                LoadShaderFromString(vshader, ShaderType.VertexShader);
-                LoadShaderFromString(fshader, ShaderType.FragmentShader);
-            }
-
-            Link();
-            GenBuffers();
-        }
 
         public class UniformInfo
         {

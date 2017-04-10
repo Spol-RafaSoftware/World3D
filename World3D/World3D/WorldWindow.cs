@@ -7,6 +7,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace World3D
 {
@@ -29,7 +30,7 @@ namespace World3D
         public Matrix4 Projection { get; private set; }
         public Camera Camera { get { return camera; } }
 
-        public List<ModelRenderer> Models { get; set; } = new List<ModelRenderer>();
+        public List<ShaderModelRenderer> Models { get; set; } = new List<ShaderModelRenderer>();
 
         /// <summary>Creates a 800x600 window with the specified title.</summary>
         public WorldWindow()
@@ -56,7 +57,7 @@ namespace World3D
             camControl = new AzElCameraControl(this, cam) { MoveSpeed = 100 };
             camera = cam;
 
-            foreach(ModelRenderer m in Models)
+            foreach(ShaderModelRenderer m in Models)
             {
                 m.Load(e);
             }
@@ -106,12 +107,13 @@ namespace World3D
         {
             base.OnUpdateFrame(e);
 
-            foreach (ModelRenderer mr in Models)
+            foreach (ShaderModelRenderer mr in Models)
             {
-                Model m = mr.Model;
-                m.CalculateModelMatrix();
+                IModel m = mr.Model;
+                if(m is IMovableModel)
+                    (m as IMovableModel).CalculateModelMatrix();
                 m.ViewProjectionMatrix = Camera.View * Projection;
-                m.ModelViewProjectionMatrix = m.ModelMatrix * m.ViewProjectionMatrix;
+                m.WorldViewProjectionMatrix = m.WorldMatrix * m.ViewProjectionMatrix;
                 mr.UpdateFrame(e);
             }
 
@@ -136,24 +138,31 @@ namespace World3D
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-
-
-            if (ShowMesh)
-                GL.PolygonMode(MaterialFace.Front, PolygonMode.Line);
-            else
-                GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
-
             GL.ClearColor(0.6f, 0.7f, 1.0f, 0.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.DepthTest);
 
-            Matrix4 view = Camera.View;
-
-            foreach (ModelRenderer m in Models)
+            if (ShowMesh)
             {
-                m.RenderFrame(e);
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+                //GL.PolygonMode(MaterialFace.Back, PolygonMode.Point);
+            }
+            else
+            {
+                GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
+                GL.PolygonMode(MaterialFace.Back, PolygonMode.Fill);
             }
 
+            List<ShaderModelRenderer> sortedRenderers = Models.OrderByDescending(s => s.ShaderProgram.ProgramID).ToList();
+
+            foreach (ShaderModelRenderer mr in sortedRenderers)
+            {
+
+
+                mr.RenderFrame(e);
+                
+
+            }
             GL.Flush();
             SwapBuffers();
         }
