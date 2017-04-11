@@ -1,6 +1,8 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace World3D
 {
@@ -19,8 +21,16 @@ namespace World3D
         //public virtual Vector3[] ColourData { get { return new Vector3[] { }; }  protected set { } }
 
         public BeginMode DrawMode { get; protected set; } = BeginMode.Triangles;
-      
-        
+
+        public IEnumerator<Triangle> GetEnumerator()
+        {
+            return new TriangleEnumerator(this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
     public abstract class MovableModel : Model, IMovableModel
@@ -37,7 +47,7 @@ namespace World3D
         }
     }
 
-    public class Cube : MovableModel, IColourModel
+    public class Cube : MovableModel
     {
         Vector3[] vertices;
         int[] indices;
@@ -46,14 +56,7 @@ namespace World3D
         public override Vector3[] Vertices { get { return vertices; }protected set { vertices = value; } }
 
         public override int[] Indices { get { return indices; } protected set { indices = value; } }
-
-        public Vector3[] ColourData
-        {
-            get
-            {
-                return new Vector3[Vertices.Length];
-            }
-        }
+        
 
         public Cube()
         {
@@ -153,7 +156,7 @@ namespace World3D
 
     public class ColouredCube : Cube, IColourModel
     {
-       protected Vector3[] colorData;
+       protected Vector3[] colourData;
 
         public ColouredCube()
         {
@@ -172,7 +175,7 @@ namespace World3D
             Vector3 cyan = new Vector3(0, 1, 1);
             Vector3 yell = new Vector3(1, 1, 0);
 
-            colorData = new Vector3[] {
+            colourData = new Vector3[] {
                 red,red,red,red,
                 green,green,green,green,
                 blue,blue,blue,blue,
@@ -183,8 +186,8 @@ namespace World3D
         }
         public Vector3[] ColourData
         {
-            get { return colorData; }
-            protected set { colorData = value; }
+            get { return colourData; }
+            protected set { colourData = value; }
         }
     }
     public class TexturedCube : Cube, ITexturedModel

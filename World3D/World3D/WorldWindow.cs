@@ -37,6 +37,8 @@ namespace World3D
             : base(800, 600, GraphicsMode.Default, "World3D")
         {
             VSync = VSyncMode.On;
+            camera = new AzElCamera();
+            camControl = new AzElCameraControl(this, camera) ;
         }
 
         
@@ -47,22 +49,12 @@ namespace World3D
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-
-            Vector2 azEl = new Vector2(0, (float)-Math.PI / 4);
-            Vector3 dir = Math3D.Sph2Cart(azEl) * 5;
-            Vector3 eye = new Vector3(0, 1400, -200);
-            AzElCamera cam = new AzElCamera() { Target = eye - dir, Azimuth = azEl.X, Elevation = azEl.Y, Distance = 5 };
-
-            camControl = new AzElCameraControl(this, cam) { MoveSpeed = 100 };
-            camera = cam;
-
+            
             foreach(ShaderModelRenderer m in Models)
             {
                 m.Load(e);
             }
             
-
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
@@ -93,7 +85,7 @@ namespace World3D
 
             GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-            Projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 10.0f, 100000.0f);
+            Projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 100000.0f);
             //Matrix4 p = Projection;
             //GL.MatrixMode(MatrixMode.Projection);
             //GL.LoadMatrix(ref p);

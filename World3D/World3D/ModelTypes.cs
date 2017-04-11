@@ -12,7 +12,7 @@ namespace World3D
     /// A Model that contains vertex position (Vector3) information.
     /// Basically every model should implement this.
     /// </summary>
-    public interface IModel
+    public interface IModel : IEnumerable<Triangle>
     {
         Vector3[] Vertices { get; }
         int[] Indices { get;  }

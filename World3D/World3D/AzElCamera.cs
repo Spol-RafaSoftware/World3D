@@ -10,10 +10,11 @@ namespace World3D
 {
 	public interface Camera
 	{
-		Vector3 Eye { get; }
+		Vector3 Eye { get;  }
 		Vector3 Up { get; }
-		Vector3 Target { get; set; }
+		Vector3 Target { get;  }
 		Matrix4 View { get; }
+        void LookAt(Vector3 eye, Vector3 target);
 	}
 
 	public class AzElCamera : Camera
@@ -46,16 +47,28 @@ namespace World3D
 		/// <summary>
 		/// The eye position in world coordinates of the camera
 		/// </summary>
-		public Vector3 Eye { get { return CalculateEye(); }  }
-		/// <summary>
-		/// The target position that is one unit distant from the eye.
-		/// </summary>
-		public Vector3 Target { get; set; }
+		public Vector3 Eye { get { return CalculateEye(); } }
+
+
+        /// <summary>
+        /// The target position that is one unit distant from the eye.
+        /// </summary>
+        public Vector3 Target { get; set; }
 		public Vector3 Up { get { return Vector3.UnitY; } }
 
 		public Matrix4 View { get { return Matrix4.LookAt(Eye, Target, Up); } }
 
-		Vector3 CalculateEye()
+
+        public void LookAt(Vector3 eye, Vector3 target)
+        {
+            Vector3 diff = (eye - target);
+            distance = diff.Length;
+            Elevation = -Math.Atan2(diff.Y, Math.Sqrt(diff.X * diff.X + diff.Z * diff.Z));
+            Azimuth = -Math.Atan2(diff.X, diff.Z);
+            Distance = distance;
+        }
+
+        Vector3 CalculateEye()
 		{
 			Vector3 dir = GetDirection();
 			dir = Vector3.Multiply(dir, (float)distance);

@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "World3D", "World3D\World3D.csproj", "{1534B438-396D-4BDF-BDF8-1940C000B812}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "World3DTests", "World3DTests\World3DTests.csproj", "{21228C09-6981-4DF7-8349-51E35AA34AB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "World3DWindowTests", "World3DWindowTests\World3DWindowTests.csproj", "{0B39AEFD-68FB-4AAE-A222-1E8FE45FFB52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{1534B438-396D-4BDF-BDF8-1940C000B812}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1534B438-396D-4BDF-BDF8-1940C000B812}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1534B438-396D-4BDF-BDF8-1940C000B812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21228C09-6981-4DF7-8349-51E35AA34AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21228C09-6981-4DF7-8349-51E35AA34AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21228C09-6981-4DF7-8349-51E35AA34AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21228C09-6981-4DF7-8349-51E35AA34AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B39AEFD-68FB-4AAE-A222-1E8FE45FFB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B39AEFD-68FB-4AAE-A222-1E8FE45FFB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B39AEFD-68FB-4AAE-A222-1E8FE45FFB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B39AEFD-68FB-4AAE-A222-1E8FE45FFB52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

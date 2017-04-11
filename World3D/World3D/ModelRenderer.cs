@@ -83,8 +83,7 @@ namespace World3D
         public virtual void RenderFrame(FrameEventArgs e)
         {
             GL.UseProgram(ShaderProgram.ProgramID);
-
-
+            
             GL.BindBuffer(BufferTarget.ArrayBuffer, ShaderProgram.GetBuffer("vPosition"));
             GL.BufferData(BufferTarget.ArrayBuffer,
                 (IntPtr)(Model.Vertices.Length * Vector3.SizeInBytes),
