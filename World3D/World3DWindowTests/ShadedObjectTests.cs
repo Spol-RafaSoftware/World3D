@@ -103,7 +103,15 @@ namespace World3DWindowTests
                         VertexShaderFilaneme = "Shaders/vs_tex.glsl",
                         FragmentShaderFilename = "Shaders/fs_tex.glsl"
                     };
-                    (cube as TexturedCube).TextureID = TextureLoader.loadImage("Textures/opentksquare.png");
+                    if (rand.Next(2) == 0)
+                    {
+                        BitmapTexture btex = new BitmapTexture(200, 200);
+                        (cube as TexturedCube).TextureID = TextureLoader.loadImage(btex.Bitmap);
+                    }
+                    else
+                    {
+                        (cube as TexturedCube).TextureID = TextureLoader.loadImage("Textures/opentksquare.png");
+                    }
                 }
 
                 cube.Scale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -120,7 +128,7 @@ namespace World3DWindowTests
             {
                 MovableModel cube = game.Models[i].Model as MovableModel;
                 cube.Position = new Vector3(posOffsets[i].X, (float)Math.Sin(time + posOffsets[i].Y), posOffsets[i].Z);
-                cube.Rotation = new Vector3(0.3f * time, 0.1f * time, 0);
+                cube.Rotation = new Vector3(0.5f * time, 0.1f * time, 0);
             }
         }
     }

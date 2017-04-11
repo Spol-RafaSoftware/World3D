@@ -38,7 +38,7 @@ namespace World3D
     /// </summary>
     public interface IColourModel : IModel
     {
-        Vector3[] ColourData { get; }
+        Vector4[] ColourData { get; }
     }
     /// <summary>
     /// A Model that contains per-vertex texture-coordinates (Vector2) information.

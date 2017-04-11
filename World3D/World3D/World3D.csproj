@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AzElCamera.cs" />
     <Compile Include="AzElCameraControl.cs" />
+    <Compile Include="BitmapTexture.cs" />
     <Compile Include="Math3D.cs" />
     <Compile Include="ModelRenderer.cs" />
     <Compile Include="ModelTypes.cs" />

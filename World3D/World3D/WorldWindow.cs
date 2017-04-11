@@ -132,6 +132,8 @@ namespace World3D
             base.OnRenderFrame(e);
             GL.ClearColor(0.6f, 0.7f, 1.0f, 0.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.Blend);
             GL.Enable(EnableCap.DepthTest);
 
             if (ShowMesh)

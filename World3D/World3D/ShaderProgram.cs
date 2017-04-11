@@ -69,6 +69,7 @@ namespace World3D
 
         public void LoadShaderFromFile(String filename, ShaderType type)
         {
+            
             using (StreamReader sr = new StreamReader(filename))
             {
                 if (type == ShaderType.VertexShader)

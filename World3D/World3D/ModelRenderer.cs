@@ -137,10 +137,10 @@ namespace World3D
                 if (shaderProgram.GetAttribute("vColor") != -1 && model.ColourData.Length > 0)
                 {
                     GL.BindBuffer(BufferTarget.ArrayBuffer, shaderProgram.GetBuffer("vColor"));
-                    GL.BufferData<Vector3>(BufferTarget.ArrayBuffer,
-                        (IntPtr)(model.ColourData.Length * Vector3.SizeInBytes),
+                    GL.BufferData<Vector4>(BufferTarget.ArrayBuffer,
+                        (IntPtr)(model.ColourData.Length * Vector4.SizeInBytes),
                         model.ColourData, BufferUsageHint.StaticDraw);
-                    GL.VertexAttribPointer(shaderProgram.GetAttribute("vColor"), 3, VertexAttribPointerType.Float, true, 0, 0);
+                    GL.VertexAttribPointer(shaderProgram.GetAttribute("vColor"), 4, VertexAttribPointerType.Float, true, 0, 0);
                 }
             }
         }

@@ -156,7 +156,7 @@ namespace World3D
 
     public class ColouredCube : Cube, IColourModel
     {
-       protected Vector3[] colourData;
+       protected Vector4[] colourData;
 
         public ColouredCube()
         {
@@ -168,14 +168,14 @@ namespace World3D
             this.Indices = indicies;
             this.DrawMode = drawMode;
             
-            Vector3 red = new Vector3(1, 0, 0);
-            Vector3 green = new Vector3(0, 1, 0);
-            Vector3 blue = new Vector3(0, 0, 1);
-            Vector3 mag = new Vector3(1, 0, 1);
-            Vector3 cyan = new Vector3(0, 1, 1);
-            Vector3 yell = new Vector3(1, 1, 0);
+            Vector4 red = new Vector4(1, 0, 0,0.6f);
+            Vector4 green = new Vector4(0, 1, 0, 0.6f);
+            Vector4 blue = new Vector4(0, 0, 1, 0.6f);
+            Vector4 mag = new Vector4(1, 0, 1, 0.6f);
+            Vector4 cyan = new Vector4(0, 1, 1, 0.6f);
+            Vector4 yell = new Vector4(1, 1, 0, 0.6f);
 
-            colourData = new Vector3[] {
+            colourData = new Vector4[] {
                 red,red,red,red,
                 green,green,green,green,
                 blue,blue,blue,blue,
@@ -184,7 +184,7 @@ namespace World3D
                 yell,yell,yell,yell
             };
         }
-        public Vector3[] ColourData
+        public Vector4[] ColourData
         {
             get { return colourData; }
             protected set { colourData = value; }
