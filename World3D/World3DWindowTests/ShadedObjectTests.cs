@@ -56,17 +56,41 @@ namespace World3DWindowTests
         {
             using (WorldWindow game = new WorldWindow())
             {
-                game.Camera.LookAt(new Vector3(-4, 4, -4), new Vector3());
+                Vector3 eye = new Vector3(-4, 4, -4);
+                game.Camera.LookAt(eye, eye*0.8f);
                 int texID = TextureLoader.LoadImage("Textures/opentksquare.png");
                 Vector3[] posOffsets = GenerateRandomCubes(game, texID);
+
+                UserInterfaceSimpleTextbox ui = new UserInterfaceSimpleTextbox();
+                ShaderModelRenderer ui_sm = new ShaderModelRenderer(ui)
+                {
+                    VertexShaderFilaneme = "Shaders/vs_tex.glsl",
+                    FragmentShaderFilename = "Shaders/fs_tex.glsl",
+                };
+                game.Models.Add(ui_sm);
+
                 float time = 0;
                 game.UpdateFrame += (o, e) =>
                 {
                     time += (float)e.Time;
+                    ui.Text = CommonStats(game,e.Time);
+
+
                     MoveModels(game, time, posOffsets);
                 };
-                game.Run();
+                game.Run(60.0);
             }
+        }
+
+        static double time = 0;
+        public static string CommonStats(WorldWindow game, double timeSinceLastRender)
+        {
+            time += (float)timeSinceLastRender;
+            double fps = timeSinceLastRender == 0 ? 1000 : 1.0 / timeSinceLastRender;
+            AzElCamera cam = game.Camera as AzElCamera;
+            return "Fps: " + fps.ToString("N1") + " Time: " + time.ToString("N2") + "\n"
+                    + "CamLoc:  " + cam.Eye.X.ToString("F2")+","+cam.Eye.Y.ToString("F2") + ","+cam.Eye.Z.ToString("F2") + "\n"
+                    + "CamAzEl: " + cam.Azimuth.ToString("F2")+":"+cam.Elevation.ToString("F2");
         }
 
 
@@ -117,7 +141,7 @@ namespace World3DWindowTests
 
         static void MoveModels(WorldWindow game, float time, Vector3[] posOffsets)
         {
-            for (int i = 0; i < game.Models.Count; i++)
+            for (int i = 0; i < posOffsets.Length; i++)
             {
                 MovableModel cube = game.Models[i].Model as MovableModel;
                 cube.Position = new Vector3(posOffsets[i].X, (float)Math.Sin(time + posOffsets[i].Y), posOffsets[i].Z);

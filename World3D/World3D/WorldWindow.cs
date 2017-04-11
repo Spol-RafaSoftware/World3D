@@ -139,7 +139,6 @@ namespace World3D
             if (ShowMesh)
             {
                 GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
-                //GL.PolygonMode(MaterialFace.Back, PolygonMode.Point);
             }
             else
             {
@@ -147,7 +146,7 @@ namespace World3D
                 GL.PolygonMode(MaterialFace.Back, PolygonMode.Fill);
             }
 
-            List<ShaderModelRenderer> sortedRenderers = Models.OrderByDescending(s => s.ShaderProgram.ProgramID).ToList();
+            List<ShaderModelRenderer> sortedRenderers = Models.OrderBy(s => s.ShaderProgram.ProgramID).ToList();
 
             foreach (ShaderModelRenderer mr in sortedRenderers)
             {

@@ -18,7 +18,7 @@ namespace World3DWindowTests
                 Vector3 eye = new Vector3(0, 2, 0);
                 game.Camera.LookAt(eye, eye * 0.8f);
                 UserInterfaceSimpleTextbox ui = new UserInterfaceSimpleTextbox();
-                ui.Background = Color.FromArgb(0, 0, 0, 0);
+                ui.BoxBackground = Color.FromArgb(0, 0, 0, 0);
                 ShaderModelRenderer sm = new ShaderModelRenderer(ui)
                 {
                     VertexShaderFilaneme = "Shaders/vs_tex.glsl",
@@ -49,7 +49,7 @@ namespace World3DWindowTests
                 Vector3 eye = new Vector3(0, 0, -4);
                 game.Camera.LookAt(eye, eye * 0.8f);
                 UserInterfaceSimpleTextbox ui = new UserInterfaceSimpleTextbox();
-                ui.Background = Color.FromArgb(0, 0, 0, 0);
+                ui.BoxBackground = Color.FromArgb(40, 0, 0, 0);
                 ShaderModelRenderer ui_sm = new ShaderModelRenderer(ui)
                 {
                     VertexShaderFilaneme = "Shaders/vs_tex.glsl",
