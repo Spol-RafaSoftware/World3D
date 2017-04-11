@@ -12,9 +12,9 @@ namespace World3D
     public abstract class Model : IModel
     {
         
-        public Matrix4 WorldMatrix { get; set; } = Matrix4.Identity;
-        public Matrix4 ViewProjectionMatrix { get; set; } = Matrix4.Identity;
-        public Matrix4 WorldViewProjectionMatrix { get; set; } = Matrix4.Identity;
+        public virtual Matrix4 WorldMatrix { get; set; } = Matrix4.Identity;
+        public virtual Matrix4 ViewProjectionMatrix { get; set; } = Matrix4.Identity;
+        public virtual Matrix4 WorldViewProjectionMatrix { get; set; } = Matrix4.Identity;
 
         public abstract Vector3[] Vertices { get; protected set; }
         public abstract int[] Indices { get; protected set; }
@@ -39,7 +39,7 @@ namespace World3D
         public Vector3 Position { get; set; } = Vector3.Zero;
         public Vector3 Rotation { get; set; } = Vector3.Zero;
         public Vector3 Scale { get; set; } = Vector3.One;
-        public virtual void CalculateModelMatrix()
+        public virtual void UpdateFrame()
         {
             WorldMatrix = Matrix4.CreateScale(Scale)
                 * Matrix4.CreateRotationX(Rotation.X) * Matrix4.CreateRotationY(Rotation.Y) * Matrix4.CreateRotationZ(Rotation.Z)

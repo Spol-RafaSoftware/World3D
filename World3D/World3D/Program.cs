@@ -45,7 +45,7 @@ namespace World3D
                 FragmentShaderFilename = "Shaders/fs_tex.glsl",
                 VertexShaderFilaneme = "Shaders/vs_tex.glsl"
             };
-            int texID = TextureLoader.loadImage("Textures/opentksquare.png");
+            int texID = TextureLoader.LoadImage("Textures/opentksquare.png");
             (tCube as ITexturedModel).TextureID = texID;
             
             this.Models.Add(sTex);

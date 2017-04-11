@@ -61,11 +61,12 @@ namespace World3D
 
         public void LookAt(Vector3 eye, Vector3 target)
         {
+            Target = target;
             Vector3 diff = (eye - target);
-            distance = diff.Length;
+            float distance = diff.Length;
             Elevation = -Math.Atan2(diff.Y, Math.Sqrt(diff.X * diff.X + diff.Z * diff.Z));
-            Azimuth = -Math.Atan2(diff.X, diff.Z);
-            Distance = distance;
+            Azimuth = Math.Atan2(-diff.X, -diff.Z);
+            Distance = 1;
         }
 
         Vector3 CalculateEye()

@@ -16,7 +16,8 @@ namespace World3DWindowTests
             //SimpleWindowTests.TwoMovingObjects();
             //ShadedObjectTests.ThreeShaders();
             //ShadedObjectTests.ManyCubes();
-            UserInterfaceTest.TextboxInterface();
+            //UserInterfaceTest.TextboxInterface();
+            UserInterfaceTest.TextboxInterfaceWithObject();
         }
     }
 }

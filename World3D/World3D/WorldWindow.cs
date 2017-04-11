@@ -103,7 +103,7 @@ namespace World3D
             {
                 IModel m = mr.Model;
                 if(m is IMovableModel)
-                    (m as IMovableModel).CalculateModelMatrix();
+                    (m as IMovableModel).UpdateFrame();
                 m.ViewProjectionMatrix = Camera.View * Projection;
                 m.WorldViewProjectionMatrix = m.WorldMatrix * m.ViewProjectionMatrix;
                 mr.UpdateFrame(e);
@@ -151,11 +151,7 @@ namespace World3D
 
             foreach (ShaderModelRenderer mr in sortedRenderers)
             {
-
-
                 mr.RenderFrame(e);
-                
-
             }
             GL.Flush();
             SwapBuffers();

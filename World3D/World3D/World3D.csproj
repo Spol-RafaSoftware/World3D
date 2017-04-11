@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="AzElCamera.cs" />
     <Compile Include="AzElCameraControl.cs" />
-    <Compile Include="BitmapTexture.cs" />
     <Compile Include="Math3D.cs" />
     <Compile Include="ModelRenderer.cs" />
     <Compile Include="ModelTypes.cs" />
@@ -59,8 +58,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShaderProgram.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="Square.cs" />
     <Compile Include="TextureLoader.cs" />
     <Compile Include="TriangleEnumerator.cs" />
+    <Compile Include="UserInterfaceModel.cs" />
     <Compile Include="WorldWindow.cs" />
   </ItemGroup>
   <ItemGroup>

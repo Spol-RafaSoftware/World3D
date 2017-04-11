@@ -30,7 +30,7 @@ namespace World3DWindowTests
             {
                 game.Camera.LookAt(new Vector3(-4, 4, -4), new Vector3());
 
-                (cube3 as TexturedCube).TextureID = TextureLoader.loadImage("Textures/opentksquare.png");
+                (cube3 as TexturedCube).TextureID = TextureLoader.LoadImage("Textures/opentksquare.png");
 
                 game.Models.Add(sm1);
                 game.Models.Add(sm2);
@@ -57,7 +57,7 @@ namespace World3DWindowTests
             using (WorldWindow game = new WorldWindow())
             {
                 game.Camera.LookAt(new Vector3(-4, 4, -4), new Vector3());
-                int texID = TextureLoader.loadImage("Textures/opentksquare.png");
+                int texID = TextureLoader.LoadImage("Textures/opentksquare.png");
                 Vector3[] posOffsets = GenerateRandomCubes(game, texID);
                 float time = 0;
                 game.UpdateFrame += (o, e) =>
@@ -103,15 +103,8 @@ namespace World3DWindowTests
                         VertexShaderFilaneme = "Shaders/vs_tex.glsl",
                         FragmentShaderFilename = "Shaders/fs_tex.glsl"
                     };
-                    if (rand.Next(2) == 0)
-                    {
-                        BitmapTexture btex = new BitmapTexture(200, 200);
-                        (cube as TexturedCube).TextureID = TextureLoader.loadImage(btex.Bitmap);
-                    }
-                    else
-                    {
-                        (cube as TexturedCube).TextureID = TextureLoader.loadImage("Textures/opentksquare.png");
-                    }
+                        (cube as TexturedCube).TextureID = TextureLoader.LoadImage("Textures/opentksquare.png");
+                    
                 }
 
                 cube.Scale = new Vector3(0.5f, 0.5f, 0.5f);
