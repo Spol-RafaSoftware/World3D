@@ -14,7 +14,8 @@ namespace World3DWindowTests
             //SimpleWindowTests.EmptyWindow();
             //SimpleWindowTests.SingleObect();
             //SimpleWindowTests.TwoMovingObjects();
-            ShadedObjectTests.ThreeShaders();
+            //ShadedObjectTests.ThreeShaders();
+            ShadedObjectTests.ManyCubes();
         }
     }
 }

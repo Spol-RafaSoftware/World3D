@@ -22,7 +22,7 @@ namespace World3D
 
     public class WorldWindow : GameWindow, GameWorld
     {
-        //public string SrtmFolder { get; set; }
+
         protected AzElCamera camera;
         protected AzElCameraControl camControl;
         volatile bool ShowMesh;
