@@ -54,6 +54,7 @@
     <Compile Include="Math3D.cs" />
     <Compile Include="ModelRenderer.cs" />
     <Compile Include="Models\ModelTypes.cs" />
+    <Compile Include="Models\SquareGrid.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShaderProgram.cs" />

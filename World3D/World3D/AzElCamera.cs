@@ -33,7 +33,7 @@ namespace World3D
 		/// </summary>
 		public double Elevation { get { return elevation; } set { elevation = Math3D.Clamp((float)value, (float)-Math.PI / 2 + 0.1f, (float)Math.PI / 2 - 0.1f); } }
 		/// <summary>
-		/// Azimuth direction in radians. 0 = north = +Y
+		/// Azimuth direction in radians. 0 = north = +Z, pi = east = +X.
 		/// Changes the camera Eye position to rotate around the Target.
 		/// </summary>
 		public double Azimuth
@@ -47,34 +47,35 @@ namespace World3D
 		/// <summary>
 		/// The eye position in world coordinates of the camera
 		/// </summary>
-		public Vector3 Eye { get { return CalculateEye(); } }
+		public Vector3 Eye { get; set; }// { return CalculateEye(); } }
 
 
         /// <summary>
         /// The target position that is one unit distant from the eye.
         /// </summary>
-        public Vector3 Target { get; set; }
+        public Vector3 Target { get { return CalculateTarget(); } }
 		public Vector3 Up { get { return Vector3.UnitY; } }
 
-		public Matrix4 View { get { return Matrix4.LookAt(Eye, Target, Up); } }
+		public Matrix4 View { get { return Matrix4.LookAt(-Eye, -Target, -Up); } }
 
 
         public void LookAt(Vector3 eye, Vector3 target)
         {
+            Eye = eye;
             Vector3 diff = (eye - target);
             float distance = diff.Length;
             Elevation = -Math.Atan2(diff.Y, Math.Sqrt(diff.X * diff.X + diff.Z * diff.Z));
             Azimuth = Math.Atan2(-diff.X, -diff.Z);
-            Target = target;
             Distance = distance;
         }
 
-        Vector3 CalculateEye()
-		{
-			Vector3 dir = GetDirection();
-			dir = Vector3.Multiply(dir, (float)distance);
-			return Vector3.Subtract(Target, dir);
-		}
+        Vector3 CalculateTarget()
+        {
+            Vector3 dir = -GetDirection();
+            dir = Vector3.Multiply(dir, (float)distance);
+            return Vector3.Subtract(Eye, dir);
+        }
+        
 		/// <summary>
 		/// Return camera direction as a unit vector.
 		/// </summary>
@@ -91,7 +92,7 @@ namespace World3D
 		}
 
 		/// <summary>
-		/// Sets the distance between eye and target. Target remains the same, but eye moves backwards/forwards.
+		/// Sets the distance between eye and target. Eye remains the same, but target moves backwards/forwards.
 		/// </summary>
 		/// <param name="d"></param>
 		public void SetDistance(double d)
@@ -109,8 +110,8 @@ namespace World3D
 		{
 			double x = -Math.Cos(Azimuth) * d;
 			double z = -Math.Sin(Azimuth) * d;
-			Target = Vector3.Add(Target, new Vector3((float)x,0,(float)z));
-		}
+            Eye = Vector3.Add(Eye, new Vector3((float)x, 0, (float)z));
+        }
 
 		/// <summary>
 		/// Moves the target location forwards or backwards relative to the camera.
@@ -120,13 +121,13 @@ namespace World3D
 		{
 			double x = Math.Sin(-Azimuth) * d;
 			double z = Math.Cos(-Azimuth) * d;
-			Target = Vector3.Add(Target, new Vector3((float)x, 0, (float)z));
-		}
+            Eye = Vector3.Add(Eye, new Vector3((float)x, 0, (float)z));
+        }
 
 		public void MoveUpwards(double d)
 		{
-			Target = Vector3.Add(Target, new Vector3(0, (float)d, 0));
-		}
+            Eye = Vector3.Add(Eye, new Vector3(0, (float)d, 0));
+        }
 
 	}
 }

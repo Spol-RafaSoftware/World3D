@@ -11,20 +11,14 @@ namespace World3DWindowTests
 {
     public class UserInterfaceTest
     {
+
         public static void TextboxInterface()
         {
             using (WorldWindow game = new WorldWindow())
             {
                 Vector3 eye = new Vector3(0, 2, 0);
                 game.Camera.LookAt(eye, eye * 0.8f);
-                UserInterfaceSimpleTextbox ui = new UserInterfaceSimpleTextbox();
-                ui.BoxBackground = Color.FromArgb(0, 0, 0, 0);
-                ShaderModelRenderer sm = new ShaderModelRenderer(ui)
-                {
-                    VertexShaderFilaneme = "Shaders/vs_tex.glsl",
-                    FragmentShaderFilename = "Shaders/fs_tex.glsl",
-                };
-                game.Models.Add(sm);
+                UserInterface ui = new UserInterface(game);
                 
                 float time = 0;
                 game.UpdateFrame += (o, e) =>

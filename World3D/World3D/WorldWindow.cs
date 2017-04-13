@@ -86,9 +86,7 @@ namespace World3D
             GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
             Projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 100000.0f);
-            //Matrix4 p = Projection;
-            //GL.MatrixMode(MatrixMode.Projection);
-            //GL.LoadMatrix(ref p);
+   
         }
 
         /// <summary>
@@ -145,10 +143,8 @@ namespace World3D
                 GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
                 GL.PolygonMode(MaterialFace.Back, PolygonMode.Fill);
             }
-
-            List<ShaderModelRenderer> sortedRenderers = Models.OrderBy(s => s.ShaderProgram.ProgramID).ToList();
-
-            foreach (ShaderModelRenderer mr in sortedRenderers)
+            
+            foreach (ShaderModelRenderer mr in Models)
             {
                 mr.RenderFrame(e);
             }

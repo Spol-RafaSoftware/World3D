@@ -14,10 +14,11 @@ namespace World3DWindowTests
             //SimpleWindowTests.EmptyWindow();
             //SimpleWindowTests.SingleObect();
             //SimpleWindowTests.TwoMovingObjects();
-            //ShadedObjectTests.ThreeShaders();
-            ShadedObjectTests.ManyCubes();
+            ShadedObjectTests.ThreeShaders();
+            //ShadedObjectTests.ManyCubes();
             //UserInterfaceTest.TextboxInterface();
             //UserInterfaceTest.TextboxInterfaceWithObject();
+            //TerrainGridTests.SquareGridTest();
         }
     }
 }

@@ -31,14 +31,20 @@ namespace World3D
         }
         public static void CreateSquare(Vector2 vMin, Vector2 vMax, out Vector3[] vertices, out int[]indices, out BeginMode mode)
         {
-            mode = BeginMode.Triangles;
+            mode = BeginMode.TriangleStrip;
             vertices = new Vector3[] {
                 new Vector3(vMin.X, 0, vMin.Y),
                 new Vector3(vMin.X, 0,vMax.Y),
                 new Vector3(vMax.X, 0,vMax.Y),
                 new Vector3(vMax.X, 0,vMin.Y)
                 };
-            indices = new int[] { 0, 1, 3, 1, 2, 3 };
+            vertices = new Vector3[] {
+                new Vector3(vMin.X, 0, vMin.Y),
+                new Vector3(vMax.X, 0,vMin.Y),
+                new Vector3(vMin.X, 0,vMax.Y),
+                new Vector3(vMax.X, 0,vMax.Y)
+                };
+            indices = new int[] { 0, 2, 1, 3 };
         }
     }
 

@@ -112,7 +112,7 @@ namespace World3D
         {
             camera.Elevation = azEl.Y;
             camera.Azimuth = azEl.X;
-            camera.Target = pos;
+            camera.Eye = pos;
         }
 
 	}

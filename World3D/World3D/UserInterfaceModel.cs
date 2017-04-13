@@ -37,12 +37,12 @@ namespace World3D
             texCoords = new Vector2[]
              {
                 new Vector2(0,1),
+                new Vector2(1,1),
                 new Vector2(0,0),
-                new Vector2(1,0),
-                new Vector2(1,1)
+                new Vector2(1,0)
              };
             for (int i = 0; i < vertices.Length; i++)
-                vertices[i] = new Vector3(vertices[i].X, -vertices[i].Z, -1);
+                vertices[i] = new Vector3(vertices[i].X, -vertices[i].Z, -1.0f);
             bmp = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
         }
 
@@ -68,7 +68,7 @@ namespace World3D
         /// </summary>
         public RectangleF BoxPosition { get; set; } = new RectangleF(0, 0, 0.3f, 0.2f);
         public PointF TextPosition { get; set; } = new PointF(0.02f, 0.02f);
-        public Color BoxBackground { get; set; } = Color.FromArgb(0, 255, 200, 0);
+        public Color BoxBackground { get; set; } = Color.FromArgb(120, 255, 200, 0);
         public string Text { get; set; }
         public int FontSize { get; set; } = 12;
         public override void UpdateFrame()

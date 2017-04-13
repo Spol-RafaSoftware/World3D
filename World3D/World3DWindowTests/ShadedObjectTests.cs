@@ -35,18 +35,23 @@ namespace World3DWindowTests
                 game.Models.Add(sm1);
                 game.Models.Add(sm2);
                 game.Models.Add(sm3);
+
+                UserInterface ui = new UserInterface(game);
+
                 float time = 0;
                 game.UpdateFrame += (o, e) =>
                             {
                                 time += (float)e.Time;
-                                cube1.Position = new Vector3(-1, 0.5f * (float)Math.Sin(time), 0);
+                                cube1.Position = new Vector3(2, 0.05f * (float)Math.Sin(time), 0);
                                 cube1.Rotation = new Vector3(0.3f * time, 0.1f * time, 0);
 
-                                cube2.Position = new Vector3(1, -0.5f * (float)Math.Sin(time), 0);
+                                cube2.Position = new Vector3(0, 0.05f * (float)Math.Sin(time), 2);
                                 cube2.Rotation = new Vector3(0.3f * time, 0.1f * time, 0);
 
-                                cube3.Position = new Vector3(0, -0.5f * (float)Math.Cos(time), 1);
+                                cube3.Position = new Vector3(0, 0.05f * (float)Math.Sin(time), 0);
                                 cube3.Rotation = new Vector3(0.3f * time, 0.1f * time, 0);
+
+                                ui.PrintCommonStats(e.Time);
                             };
                 game.Run();
             }
@@ -61,19 +66,14 @@ namespace World3DWindowTests
                 int texID = TextureLoader.LoadImage("Textures/opentksquare.png");
                 Vector3[] posOffsets = GenerateRandomCubes(game, texID);
 
-                UserInterfaceSimpleTextbox ui = new UserInterfaceSimpleTextbox();
-                ShaderModelRenderer ui_sm = new ShaderModelRenderer(ui)
-                {
-                    VertexShaderFilaneme = "Shaders/vs_tex.glsl",
-                    FragmentShaderFilename = "Shaders/fs_tex.glsl",
-                };
-                game.Models.Add(ui_sm);
+                UserInterface ui = new UserInterface(game);
+                
 
                 float time = 0;
                 game.UpdateFrame += (o, e) =>
                 {
                     time += (float)e.Time;
-                    ui.Text = CommonStats(game,e.Time);
+                    ui.PrintCommonStats(e.Time);
 
 
                     MoveModels(game, time, posOffsets);
@@ -81,18 +81,7 @@ namespace World3DWindowTests
                 game.Run(60.0);
             }
         }
-
-        static double time = 0;
-        public static string CommonStats(WorldWindow game, double timeSinceLastRender)
-        {
-            time += (float)timeSinceLastRender;
-            double fps = timeSinceLastRender == 0 ? 1000 : 1.0 / timeSinceLastRender;
-            AzElCamera cam = game.Camera as AzElCamera;
-            return "Fps: " + fps.ToString("N1") + " Time: " + time.ToString("N2") + "\n"
-                    + "CamLoc:  " + cam.Eye.X.ToString("F2")+","+cam.Eye.Y.ToString("F2") + ","+cam.Eye.Z.ToString("F2") + "\n"
-                    + "CamAzEl: " + cam.Azimuth.ToString("F2")+":"+cam.Elevation.ToString("F2");
-        }
-
+        
 
         static Vector3[] GenerateRandomCubes(WorldWindow game, int texID)
         {
