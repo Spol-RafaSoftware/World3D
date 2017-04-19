@@ -19,7 +19,7 @@ namespace World3DWindowTests
                 game.Camera.LookAt(eye, new Vector3());
 
 
-                SquareGrid grid = new SquareGrid(4, 4, 0.3f, 0.1f);
+                SquareGrid grid = new SquareGrid(4, 4, 2.3f, 1.1f);
                 ShaderModelRenderer sm = new ShaderModelRenderer(grid);
 
                 game.Models.Add(sm);

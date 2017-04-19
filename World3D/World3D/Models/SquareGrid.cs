@@ -22,14 +22,20 @@ namespace World3D
 
         public override int[] Indices { get { return indices; } protected set { indices = value; } }
 
+        public SquareGrid() : this(1, 1, 1, 1) { }
         public SquareGrid(int xColumns, int zRows, float xPitch, float zPitch)
+        {
+            RecreateGrid(xColumns, zRows, xPitch, zPitch);
+        }
+
+        protected void RecreateGrid(int xColumns, int zRows, float xPitch, float zPitch)
         {
             this.xColumns = xColumns;
             this.zRows = zRows;
             this.xPitch = xPitch;
             this.zPitch = zPitch;
             BeginMode drawMode;
-            CreateSquareGrid(xColumns, zRows, xPitch, zRows, out vertices, out indices, out drawMode);
+            CreateSquareGrid(xColumns, zRows, xPitch, zPitch, out vertices, out indices, out drawMode);
             DrawMode = drawMode;
         }
 
