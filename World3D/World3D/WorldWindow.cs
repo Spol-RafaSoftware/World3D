@@ -14,6 +14,8 @@ namespace World3D
     public interface GameWorld : IDisposable
     {
         Camera Camera { get; }
+        CameraControl CameraControl { get; }
+        
         int Width { get; }
         int Height { get; }
         MouseDevice Mouse { get; }
@@ -29,6 +31,8 @@ namespace World3D
         
         public Matrix4 Projection { get; private set; }
         public Camera Camera { get { return camera; } }
+        public CameraControl CameraControl { get { return camControl; } }
+        
 
         public List<ShaderModelRenderer> Models { get; set; } = new List<ShaderModelRenderer>();
 

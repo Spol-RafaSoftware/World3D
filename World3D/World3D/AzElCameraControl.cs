@@ -8,7 +8,11 @@ using OpenTK.Input;
 
 namespace World3D
 {
-	public class AzElCameraControl
+    public interface CameraControl
+    {
+        double MoveSpeed { get; set; }
+    }
+	public class AzElCameraControl : CameraControl
 	{
 		AzElCamera camera;
 		GameWindow game;

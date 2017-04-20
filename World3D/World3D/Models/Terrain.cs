@@ -10,21 +10,54 @@ namespace World3D
     public class Terrain : SquareGrid
     {
         public TerrainInfo Info { get; set; }
+        public int LatRows { get { return xColumns; } }
+        public int LongColumns { get { return zRows; } }
 
         public void Recreate(TerrainInfo info, float [][] altInMetres)
         {
+            this.Info = info;
+            int latRows = altInMetres.Length-1;
+            int longColumns = altInMetres[0].Length-1;
+            if(latRows != LatRows || LongColumns != LongColumns)
+            {
+                base.RecreateGrid(latRows, longColumns, 1, 1);
+            }
 
+            float xo = (float)Info.DegreesLatitudePerPixel;
+            float zo = (float)Info.DegreesLongitudePerPixel;
+
+            Vector3 refr = new Vector3(info.CentreLatLong);
+            Vector3 refe = EarthConverter.LatLongAltToECEF(refr);
+
+            for(float x = 0; x <= LatRows; x++)
+            {
+                for(float z = 0; z <= LongColumns; z++)
+                {
+                    int ix = (int)(z * (LatRows + 1) + x);
+                    Vector3 lla = new Vector3(info.BottomLeftLatLong.X + x * xo, info.BottomLeftLatLong.Y + z * zo, altInMetres[(int)x][(int)z]);
+                    Vector3 e = EarthConverter.LatLongAltToECEF(lla);
+                    Vector3 d = e - refe;
+                    Vector3 loc = EarthConverter.RotateECEF(d, refr.X, refr.Y);
+                    Vertices[ix] = loc;
+                }
+            }
         }
     }
 
     public class TerrainInfo
     {
-        public int LatRows { get; set; }
-        public int LongColumns { get; set; }
-        public double BottomLatitude { get; set; }
-        public double LeftLongitude { get; set; }
-        public double MetresPerDegreeLatitude { get; set; }
-        
+        public Vector2 BottomLeftLatLong { get; set; }
+        public Vector2 CentreLatLong { get; set; }
+        public double DegreesLatitudePerPixel { get; set; }
+        public double DegreesLongitudePerPixel { get; set; }
+
+        public float[][] CreateFlatAltitudes(int latRows, int longCols)
+        {
+            float[][] altInMetres = new float[latRows + 1][];
+            for (int i = 0; i < latRows + 1; i++)
+                altInMetres[i] = new float[longCols + 1];
+            return altInMetres;
+        }
     }
 
     public class EarthConverter
