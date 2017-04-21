@@ -15,7 +15,9 @@ namespace World3D
 	/// </summary>
 	public class Srtm3Reader : TiledAltitudeMapReader
 	{
-		public const double NoData = -32768;
+        float NoData { get { return -32768 * AltitudeScale; } }
+
+        public float AltitudeScale { get; set; } = 1;
 
         public Srtm3Reader()
         {
@@ -34,40 +36,39 @@ namespace World3D
             // World wrap for filename.
             if (longitude < -180) longitude += 360;
             if (longitude >= 180) longitude -= 360;
+            southWestLatLong = new Vector2(latitude, longitude);
             string filename = Srtm3PathManager.CreateFilename(latitude, longitude);
             string validFile = Srtm3PathManager.FindFilename(filename);
             if (string.IsNullOrEmpty(validFile))
             {
                 Console.WriteLine("   SRTM3 file: '" + filename + "' not found.");
-                InsertBlankMap(ret, new Vector2(latitude,longitude));
+                InsertBlankMap(ret, southWestLatLong);
             }
             else
             {
                 Console.WriteLine("Building SRTM: '" + filename+"'");
-                InsertSrtmFile(ret, latitude, longitude, validFile);
+                InsertSrtmFile(ret, southWestLatLong, validFile);
             }
 
         }
 
 
-		void InsertSrtmFile(Vector3[,] ret, int latitude, int longitude, string filename)
+		void InsertSrtmFile(Vector3[,] ret, Vector2 southWestLatLong, string filename)
 		{
 
 			using (FileStream reader = new FileStream(filename, FileMode.Open))
 			{
-				short alt = 0;
+				float alt = 0;
 				for (int h = 0; h < TileHeight; h++)
 				{
 					double latOffset = 1.0 - (double)h / TileHeight;
 					for (int w = 0; w < TileWidth; w++)
 					{
-						alt = ReadShortBE(reader);
-                        ret[h, w ] = new Vector3()
-                        {
-                            Z = alt,
-                            X = (float)(latitude + latOffset),
-                            Y = (float)(longitude + (double)w / TileWidth)
-                        };
+						alt = (float)ReadShortBE(reader) * AltitudeScale;
+
+                        Vector2 latLong = CreateLatLongFromTileOffsets(southWestLatLong, TileHeight-h-1, w);
+                        ret[TileHeight - h - 1, w ] = new Vector3(latLong.X, latLong.Y, (float)alt);
+                       
 					}
 					alt = ReadShortBE(reader);
                 }
@@ -84,7 +85,15 @@ namespace World3D
 
         short ReadShortBE(Stream stream)
         {
-            return 0;
+            int b0 = stream.ReadByte();
+            int b1 = stream.ReadByte();
+            int r = (b0 * 256 + b1);
+            if (b0 > 127)
+            {
+                r = r - 65536;
+            }
+           
+            return (short)r; 
         }
 
 
@@ -146,7 +155,7 @@ namespace World3D
             List<XY> list = new List<XY>();
             for (int y = 0; y < ret.GetLength(0); y++)
                 for (int x = 0; x < ret.GetLength(1); x++)
-                    if (ret[y, x].Z == NoData)
+                    if (ret[y, x].Z  == NoData)
                         list.Add(new XY() { x = x, y = y });
             return list;
         }

@@ -92,6 +92,9 @@
     <None Include="Shaders\vs_tex.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="WebGIS_SRTM3\S37E174.hgt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Textures\opentksquare.png">

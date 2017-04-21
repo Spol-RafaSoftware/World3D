@@ -14,7 +14,8 @@ namespace World3D
         public int LongColumns { get { return zRows; } }
         public Vector3 [] Normals { get; set; }
 
-        public void Recreate(Vector3[,] lla)
+        public void Recreate(Vector3[,] lla) { Recreate(lla, new Vector2(-91, 0)); }
+        public void Recreate(Vector3[,] lla, Vector2 CentrePoint)
         {
             double dxSum = 0;
                 double dzSum = 0;
@@ -32,7 +33,10 @@ namespace World3D
                 NorthEastLatLong = lla[lla.GetLength(0) - 1, lla.GetLength(1) - 1].Xy + new Vector2((float)dLat, (float)dLong)
             };
             CheckGridSize(lla);
-            Vector3 refr = new Vector3(Info.CentreLatLong);
+            Vector3 refr = new Vector3(CentrePoint);
+            if (CentrePoint.X < -90)
+                refr = new Vector3(Info.CentreLatLong);
+            
             Vector3 refe = EarthConverter.LatLongAltToECEF(refr);
             CreateVerticesFromVectors(lla, refr, refe);
             Normals = NormalModel.CalculateNormals(this);

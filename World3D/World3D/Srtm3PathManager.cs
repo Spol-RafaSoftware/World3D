@@ -8,7 +8,7 @@ namespace World3D
 {
     public class Srtm3PathManager
     {
-        static string folder = @"C:\Public\WebGIS\WebGIS_SRTM3\";
+        static string folder = @"WebGIS_SRTM3\";
         public static string Folder { get { return folder; } set { folder = value; } }
 
         public static string CreateFilename(int latitude, int longitude)

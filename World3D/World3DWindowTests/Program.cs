@@ -19,7 +19,8 @@ namespace World3DWindowTests
             //UserInterfaceTest.TextboxInterface();
             //UserInterfaceTest.TextboxInterfaceWithObject();
             //TerrainGridTests.FlatTerrainGridTest();
-            TerrainGridTests.CosineTerrainGridTest();
+            //TerrainGridTests.CosineTerrainGridTest();
+            TerrainGridTests.AucklandTerrainGridTest();
         }
     }
 }

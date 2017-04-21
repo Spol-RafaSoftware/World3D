@@ -24,7 +24,8 @@ namespace World3D
 
     public class WorldWindow : GameWindow, GameWorld
     {
-
+        protected float nearZ = 1.0f;
+        protected float farZ = 10000.0f;
         protected AzElCamera camera;
         protected AzElCameraControl camControl;
         volatile bool ShowMesh;
@@ -89,8 +90,15 @@ namespace World3D
 
             GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-            Projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 100000.0f);
+            Projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, nearZ, farZ);
    
+        }
+
+        public void SetZRange(float nearZ, float farZ)
+        {
+            this.nearZ = nearZ;
+            this.farZ = farZ;
+            Projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, nearZ, farZ);
         }
 
         /// <summary>
