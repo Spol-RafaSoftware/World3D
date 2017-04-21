@@ -54,12 +54,12 @@ namespace World3DWindowTests
                 int cols = 100;
                 TerrainInfo info = new TerrainInfo()
                 {
-                    BottomLeftLatLong = new Vector2(-37, 174),
-                    CentreLatLong = new Vector2(-36.9f, 174.1f),
+                    SouthWestLatLong = new Vector2(-37, 174),
+                    NorthEastLatLong = new Vector2(-36.9f, 174.1f),
                     DegreesLatitudePerPixel = 0.2 / (double)rows,
                     DegreesLongitudePerPixel = 0.2 / (double)cols
                 };
-                float[][] altInMetres = info.CreateFlatAltitudes(rows, cols);
+                float[,] altInMetres = info.CreateFlatAltitudes(rows, cols);
                 terrain.Recreate(info, altInMetres);
                 
                 ShaderModelRenderer sm = new ShaderModelRenderer(terrain);
@@ -93,31 +93,17 @@ namespace World3DWindowTests
                 game.Camera.LookAt(eye, new Vector3());
                 game.CameraControl.MoveSpeed = 100;
 
+                Vector2 SouthWestLatLong = new Vector2(-37, 174);
+                Vector2 NorthEastLatLong = new Vector2(-36.9f, 174.2f);
                 Terrain terrain = new Terrain();
-                int rows = 80;
-                int cols = 100;
-                TerrainInfo info = new TerrainInfo()
-                {
-                    BottomLeftLatLong = new Vector2(-37, 174),
-                    CentreLatLong = new Vector2(-36.99f, 174.01f),
-                    DegreesLatitudePerPixel = 0.02 / (double)rows,
-                    DegreesLongitudePerPixel = 0.02 / (double)cols
-                };
-                float[][] altInMetres = info.CreateFlatAltitudes(rows, cols);
+                
+                TiledAltitudeMapReader mapReader = new CosineAltitudeMapReader();
+                Vector3[,] lla = mapReader.GetMap(SouthWestLatLong, NorthEastLatLong);
+             
 
-                for(int x = 0; x < altInMetres.Length; x++)
-                {
-                    double dx = (double)x / (double)altInMetres.Length;
-                    for (int z = 0; z < altInMetres[0].Length; z++)
-                    {
-                        double dz = (double)z / (double)altInMetres[0].Length;
-                        altInMetres[x][z] = -100*(float)(Math.Cos(4*dz * Math.PI) * Math.Cos(4*dx * Math.PI));
-                    }
-                }
+                terrain.Recreate(lla);
 
-                terrain.Recreate(info, altInMetres);
-
-                ShaderModelRenderer sm = new ShaderModelRenderer(terrain);
+                ShaderModelRenderer sm = new ShaderModelRenderer(terrain) { VertexShaderFilaneme = "Shaders/vs_norm.glsl" };
 
                 game.Models.Add(sm);
 

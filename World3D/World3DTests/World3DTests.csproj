@@ -55,10 +55,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ArrayFillerTests.cs" />
     <Compile Include="AzElCameraTests.cs" />
-    <Compile Include="Models\EarthConverterTests.cs" />
-    <Compile Include="Models\SquareGridTests.cs" />
-    <Compile Include="Models\TerrainTests.cs" />
+    <Compile Include="EarthConverterTests.cs" />
+    <Compile Include="Models\NormalModelTests.cs" />
+    <Compile Include="SquareGridTests.cs" />
+    <Compile Include="Srtm3ReaderTests.cs" />
+    <Compile Include="TerrainTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TriangleEnumeratorTests.cs" />
     <Compile Include="VectorAssertions.cs" />

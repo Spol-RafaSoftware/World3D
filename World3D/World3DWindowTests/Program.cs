@@ -18,8 +18,8 @@ namespace World3DWindowTests
             //ShadedObjectTests.ManyCubes();
             //UserInterfaceTest.TextboxInterface();
             //UserInterfaceTest.TextboxInterfaceWithObject();
-            TerrainGridTests.FlatTerrainGridTest();
-            //TerrainGridTests.CosineTerrainGridTest();
+            //TerrainGridTests.FlatTerrainGridTest();
+            TerrainGridTests.CosineTerrainGridTest();
         }
     }
 }

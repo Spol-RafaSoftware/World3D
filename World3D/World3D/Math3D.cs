@@ -226,7 +226,7 @@ namespace World3D
 
 			for (int i = 2; i < inds.Length; i++)
 			{
-				Triangle tri = new Triangle(verts[inds[i-2]], verts[inds[i - 1]], verts[inds[i]]);
+				Triangle tri = new Triangle() { v0 = verts[inds[i - 2]], v1 = verts[inds[i - 1]], v2 = verts[inds[i]] };
 				float t = RayIntersectsTriangle(rayOrigin, rayDirection, tri);
 				if (!float.IsNaN(t))
 					return t;
@@ -274,20 +274,22 @@ namespace World3D
 	
 	public class Triangle
 	{
-		public Vector3 v0;
-		public Vector3 v1;
-		public Vector3 v2;
-		public Triangle(Vector3 v0, Vector3 v1, Vector3 v2)
-		{
-			this.v0 = v0;
-			this.v1 = v1;
-			this.v2 = v2;
-		}
+		public Vector3 v0 { get; set; }
+		public Vector3 v1 { get; set; }
+        public Vector3 v2 { get; set; }
+        
 
 		public override string ToString()
 		{
 			return "T: " + v0.ToString() + "_" + v1.ToString() + "_" + v2.ToString();
 		}
 	}
+
+    public class IndexedTriangle : Triangle
+    {
+        public int i0 { get; set; }
+        public int i1 { get; set; }
+        public int i2 { get; set; }
+    }
 
 }

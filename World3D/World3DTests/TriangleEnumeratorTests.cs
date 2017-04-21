@@ -16,11 +16,20 @@ namespace World3D.Tests
         {
             Cube cube = new Cube();
             int num = 0;
-            foreach(Triangle t in cube)
+            int[] touchedVertices = new int[cube.Vertices.Length];
+            foreach(IndexedTriangle t in cube)
             {
                 num++;
+                touchedVertices[t.i0]++;
+                touchedVertices[t.i1]++;
+                touchedVertices[t.i2]++;
             }
             Assert.AreEqual(num, 2 * 6);
+            foreach (int i in touchedVertices)
+            {
+                Assert.AreNotEqual(0, i);
+                Assert.IsTrue(i % 3 == 0);
+            }
         }
 
         [TestMethod()]
@@ -28,12 +37,22 @@ namespace World3D.Tests
         {
             Cube cube = new ColouredCube();
             int num = 0;
-            foreach (Triangle t in cube)
+            int[] touchedVertices = new int[cube.Vertices.Length];
+            foreach (IndexedTriangle t in cube)
             {
                 num++;
+                touchedVertices[t.i0]++;
+                touchedVertices[t.i1]++;
+                touchedVertices[t.i2]++;
             }
             Assert.AreEqual(num, 2 * 6);
+            foreach (int i in touchedVertices)
+            {
+                Assert.AreNotEqual(0, i);
+            }
         }
+
+        
 
     }
 }

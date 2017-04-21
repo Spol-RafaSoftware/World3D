@@ -48,4 +48,9 @@ namespace World3D
         int TextureID { get; set; }
         Vector2[] TextureCoords { get; }
     }
+
+    public interface INormalModel : IModel
+    {
+        Vector3[] Normals { get; set; }
+    }
 }

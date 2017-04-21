@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AltitudeMapReader.cs" />
     <Compile Include="AzElCamera.cs" />
     <Compile Include="AzElCameraControl.cs" />
+    <Compile Include="ArrayFiller.cs" />
     <Compile Include="Math3D.cs" />
     <Compile Include="ModelRenderer.cs" />
     <Compile Include="Models\ModelTypes.cs" />
@@ -61,8 +63,10 @@
     <Compile Include="ShaderProgram.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Square.cs" />
+    <Compile Include="Srtm3PathManager.cs" />
+    <Compile Include="Srtm3Reader.cs" />
     <Compile Include="TextureLoader.cs" />
-    <Compile Include="TriangleEnumerator.cs" />
+    <Compile Include="Models\TriangleEnumerator.cs" />
     <Compile Include="UserInterfaceModel.cs" />
     <Compile Include="WorldWindow.cs" />
   </ItemGroup>
@@ -74,6 +78,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shaders\fs_tex.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shaders\vs_norm.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shaders\vs_col.glsl">

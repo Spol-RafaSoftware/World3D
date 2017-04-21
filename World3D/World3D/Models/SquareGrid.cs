@@ -80,7 +80,8 @@ namespace World3D
                     }
                 }
             }
-            if (((nZ & 1) == 0) && nZ > 2)
+            // TODO: Figure out when to logically add this last index.
+            if(((nZ & 1) == 0) && nZ > 2)
             {
                 inds.Add(nZ * nX);
             }

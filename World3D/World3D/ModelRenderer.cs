@@ -40,7 +40,10 @@ namespace World3D
 
             if (model is ITexturedModel)
                 featureRenderers.Add(new TextureRenderer(model as ITexturedModel, ShaderProgram));
-            
+
+            if (model is INormalModel)
+                featureRenderers.Add(new NormalRenderer(model as INormalModel, ShaderProgram));
+
         }
 
         public ShaderModelRenderer(IModel model) : this(model, new ShaderProgram())
@@ -182,6 +185,40 @@ namespace World3D
                     GL.Uniform1(shaderProgram.GetAttribute("maintexture"), model.TextureID);
                 }
 
+            }
+        }
+
+        internal class NormalRenderer : IModelRenderer
+        {
+            INormalModel model;
+            protected ShaderProgram shaderProgram;
+            public IModel Model { get { return model; } }
+            public NormalRenderer(INormalModel model, ShaderProgram shaderProgram)
+            {
+                this.model = model;
+                this.shaderProgram = shaderProgram;
+            }
+
+            public void Load(EventArgs e)
+            {
+            }
+
+            public void UpdateFrame(FrameEventArgs e)
+            {
+
+            }
+
+            public void RenderFrame(FrameEventArgs e)
+            {
+                // Buffer vertex normal if shader supports it
+                if (shaderProgram.GetAttribute("vNormal") != -1 && model.Normals.Length > 0)
+                {
+                    GL.BindBuffer(BufferTarget.ArrayBuffer, shaderProgram.GetBuffer("vNormal"));
+                    GL.BufferData<Vector3>(BufferTarget.ArrayBuffer,
+                        (IntPtr)(model.Normals.Length * Vector3.SizeInBytes),
+                        model.Normals, BufferUsageHint.StaticDraw);
+                    GL.VertexAttribPointer(shaderProgram.GetAttribute("vNormal"), 3, VertexAttribPointerType.Float, true, 0, 0);
+                }
             }
         }
     }

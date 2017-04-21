@@ -24,7 +24,7 @@ namespace World3D
 
         public IEnumerator<Triangle> GetEnumerator()
         {
-            return new TriangleEnumerator(this);
+            return new IndexedTriangleEnumerator(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -32,6 +32,7 @@ namespace World3D
             return GetEnumerator();
         }
     }
+
 
     public abstract class MovableModel : Model, IMovableModel
     {
@@ -243,6 +244,35 @@ namespace World3D
                 new Vector2(-1.0f, 1.0f),
                 new Vector2(-1.0f, 0.0f)
             };
+        }
+    }
+
+    public abstract class NormalModel : Model
+    {
+        public static Vector3[] CalculateNormals(Model model)
+        {
+            Vector3[] normals = new Vector3[model.Vertices.Length];
+            foreach(IndexedTriangle tri in model )
+            {
+                Vector3 n = Math3D.CalculateNormal(tri);
+                if (float.IsNaN(n.X))
+                    n = Vector3.UnitY;
+                if (normals[tri.i0] == Vector3.Zero)
+                    normals[tri.i0] = n;
+                else
+                    normals[tri.i0] = (n + normals[tri.i0]).Normalized();
+
+                if (normals[tri.i1] == Vector3.Zero)
+                    normals[tri.i1] = n;
+                else
+                    normals[tri.i1] = (n + normals[tri.i1]).Normalized();
+
+                if (normals[tri.i2] == Vector3.Zero)
+                    normals[tri.i2] = n;
+                else
+                    normals[tri.i2] = (n + normals[tri.i2]).Normalized();
+            }
+            return normals;
         }
     }
 }

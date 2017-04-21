@@ -19,12 +19,12 @@ namespace World3D.Tests
             int cols = 10;
             TerrainInfo info = new TerrainInfo()
             {
-                BottomLeftLatLong = new Vector2(-37, 174),
-                CentreLatLong = new Vector2(-36.999f, 174.001f),
+                SouthWestLatLong = new Vector2(-37, 174),
+                NorthEastLatLong = new Vector2(-36.999f, 174.001f),
                 DegreesLatitudePerPixel = 0.002/(double)rows,
                 DegreesLongitudePerPixel = 0.002/(double)cols
             };
-            float[][] altInMetres = info.CreateFlatAltitudes(rows, cols);
+            float[,] altInMetres = info.CreateFlatAltitudes(rows, cols);
             Terrain terrain = new Terrain();
             terrain.Recreate(info, altInMetres);
 
