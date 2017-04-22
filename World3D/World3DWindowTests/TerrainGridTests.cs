@@ -153,14 +153,8 @@ namespace World3DWindowTests
 
                 UserInterface ui = new UserInterface(game);
 
-                float time = 0;
-                game.UpdateFrame += (o, e) =>
-                {
-                    time += (float)e.Time;
-                    double fps = e.Time == 0 ? 1000 : 1.0 / e.Time;
-                    ui.PrintCommonStats(e.Time);
-
-                };
+                game.RenderFrame += (o, e) => ui.PrintCommonStats(e.Time);
+                
 
                 game.Run(30);
 

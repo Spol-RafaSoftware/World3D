@@ -17,6 +17,8 @@ namespace World3DWindowTests
         WorldWindow game;
         UserInterfaceSimpleTextbox ui;
         double time;
+        double fps = 30;
+        double interval = 30;
 
         public UserInterface(WorldWindow game)
         {
@@ -40,10 +42,13 @@ namespace World3DWindowTests
 
         public void PrintCommonStats(double timeSinceLastRender)
         {
+            double p = 0.05;
             time += (float)timeSinceLastRender;
-            double fps = timeSinceLastRender == 0 ? 1000 : 1.0 / timeSinceLastRender;
+            interval = interval * (1-p) + 1000*timeSinceLastRender * p;
+            double fp = timeSinceLastRender == 0 ? 1000 : 1.0 / timeSinceLastRender;
+            fps = fps * (1-p) + p * fp;
             AzElCamera cam = game.Camera as AzElCamera;
-            Text = "Fps: " + fps.ToString("N1") + " Time: " + time.ToString("N2") + "\n"
+            Text = "Fps: " + fps.ToString("N1") + " Time: " + interval.ToString("N2") + "\n"
                     + "CamLoc:  " + cam.Eye.X.ToString("F2") + "," + cam.Eye.Y.ToString("F2") + "," + cam.Eye.Z.ToString("F2") + "\n"
                     + "CamAzEl: " + cam.Azimuth.ToString("F2") + ":" + cam.Elevation.ToString("F2");
         }

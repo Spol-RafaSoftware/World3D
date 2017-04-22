@@ -20,14 +20,9 @@ namespace World3DWindowTests
                 game.Camera.LookAt(eye, eye * 0.8f);
                 UserInterface ui = new UserInterface(game);
                 
-                float time = 0;
                 game.UpdateFrame += (o, e) =>
                 {
-                    time += (float)e.Time;
-                    double fps = e.Time == 0 ? 1000 : 1.0 / e.Time;
-
-                    ui.Text = "Fps: " + fps.ToString("N1") + " Time: " + time.ToString("N2") + "\nnewline" + "\nnewline1" + "\nnewline2" + "\nnewline3";
-           
+                    ui.PrintCommonStats(e.Time);
                 };
 
                 game.Run(30);
@@ -35,7 +30,7 @@ namespace World3DWindowTests
             }
         }
 
-
+        
         public static void TextboxInterfaceWithObject()
         {
             using (WorldWindow game = new WorldWindow())

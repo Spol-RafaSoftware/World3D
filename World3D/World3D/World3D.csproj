@@ -67,7 +67,7 @@
     <Compile Include="Srtm3Reader.cs" />
     <Compile Include="TextureLoader.cs" />
     <Compile Include="Models\TriangleEnumerator.cs" />
-    <Compile Include="UserInterfaceModel.cs" />
+    <Compile Include="Models\UserInterfaceModel.cs" />
     <Compile Include="WorldWindow.cs" />
   </ItemGroup>
   <ItemGroup>

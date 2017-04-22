@@ -10,7 +10,7 @@ namespace World3D
 {
 	public interface Camera
 	{
-		Vector3 Eye { get;  }
+		Vector3 Eye { get; set; }
 		Vector3 Up { get; }
 		Vector3 Target { get;  }
 		Matrix4 View { get; }
@@ -68,7 +68,6 @@ namespace World3D
 		Vector3 GetDirection()
 		{
 			double y = Math.Sin(Elevation) ;
-			double d = Math.Sqrt(1 - y * y);
 			double x = Math.Cos(Azimuth) * Math.Cos(Elevation);
             double z = Math.Sin(Azimuth) * Math.Cos(Elevation);
             Vector3 dir = new Vector3((float)x, (float)y, (float)z);
